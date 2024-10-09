@@ -1,5 +1,5 @@
 use crate::game::board::Board;
-use crate::game::CheckMateStatus::CheckMateStatus;
+use crate::game::check_mate_status::CheckMateStatus;
 use crate::pieces::color::Color;
 use crate::pieces::piece::{PieceType, Pieces, ValidMovement};
 use crate::pieces::validator::base_validator::ContainsConflictingPiece;

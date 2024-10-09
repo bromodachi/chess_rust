@@ -11,6 +11,9 @@ Mostly created to play around with rust and how to design an application.
 - Checkmate (refer to game_test)
 - Movement validations (needs more tests)
 - Reading inputs and validating them
+- Promotion
+- En passant
+- Castling
 
 ## Features to implement 
 

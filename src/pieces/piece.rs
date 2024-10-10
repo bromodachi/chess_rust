@@ -252,13 +252,24 @@ impl Pieces {
         board: &Board,
         last_history: Option<&History>,
     ) -> ValidMovement {
+        self.is_valid_movement_has_piece_override(from, to, board, last_history, false)
+    }
+
+    pub fn is_valid_movement_has_piece_override(
+        &self,
+        from: &RowColumn,
+        to: &RowColumn,
+        board: &Board,
+        last_history: Option<&History>,
+        has_piece: bool,
+    ) -> ValidMovement {
         let base_location = BaseLocation::new_row_column(from.clone(), to.clone());
 
         let is_valid: bool = match self {
             Pieces::Pawn(pawn) => {
                 let validator = PawnValidator::new(
                     base_location,
-                    board.squares[to.row as usize][to.column as usize].has_piece(),
+                    has_piece || board.squares[to.row as usize][to.column as usize].has_piece(),
                     &pawn.get_color(),
                     pawn.get_has_moved(),
                     last_history,

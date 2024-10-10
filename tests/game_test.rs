@@ -186,8 +186,14 @@ fn draw_sept_1() {
                         sb.push_str(" ");
                         sb.push(iter.next().unwrap());
                         sb.push(iter.next().unwrap());
+                        let mut check = false;
                         if line.len() == 5 {
-                            sb.push(iter.next().unwrap());
+                            let next_char = iter.next().unwrap();
+                            if next_char != '+' {
+                                sb.push(next_char);
+                            } else {
+                                check = true;
+                            }
                         }
                         let result = game.handle_input(&sb);
                         assert_eq!(true, result.is_ok(), "failed at {}", sb);
@@ -205,7 +211,7 @@ fn draw_sept_1() {
 #[test]
 fn white_wins_sept_1() {
     let mut game = Game::new();
-    if let Ok(lines) = read_lines("./tests/resources/white_wing_sept_1.txt") {
+    if let Ok(lines) = read_lines("./tests/resources/white_wins_sept_1.txt") {
         for line in lines {
             match line {
                 Ok(line) => {
@@ -219,7 +225,10 @@ fn white_wins_sept_1() {
                         sb.push(iter.next().unwrap());
                         sb.push(iter.next().unwrap());
                         if line.len() == 5 {
-                            sb.push(iter.next().unwrap());
+                            let next_char = iter.next().unwrap();
+                            if next_char != '+' {
+                                sb.push(next_char);
+                            }
                         }
                         let result = game.handle_input(&sb);
                         assert_eq!(true, result.is_ok(), "failed at {}", sb);

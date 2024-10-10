@@ -297,14 +297,19 @@ impl Game {
                 match self.board.squares[row][column].get_piece() {
                     None => {}
                     Some(piece_ref) => {
-                        match piece_ref.is_valid_movement(
+                        match piece_ref.is_valid_movement_has_piece_override(
                             &row_column,
                             &curr_location,
                             &self.board,
                             self.history.peek(),
+                            // for pawn
+                            true,
                         ) {
-                            ValidMovement::VALID => return Some(row_column),
-                            ValidMovement::INVALID | _ => {}
+                            ValidMovement::VALID
+                            | ValidMovement::CASTLING(_)
+                            | ValidMovement::EnPassant(_)
+                            | ValidMovement::Promotion => return Some(row_column),
+                            ValidMovement::INVALID => {}
                         }
                     }
                 }
